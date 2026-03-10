@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import React from 'react';
-import {Text, Box, Newline, Spacer, Static, Transform} from 'ink';
+import {Text, Box, Newline, Spacer, Static, Transform, useInput, useApp} from 'ink';
 
 const HangingIndent = ({indent = 4, children}) => (
 	<Transform
@@ -22,6 +22,21 @@ const text =
 
 export default function App({name = 'World'}) {
 	const [tests, setTests] = useState([]);
+	const {exit} = useApp();
+
+	useInput((input, key) => {
+		if (input === 'q') {
+			// Exit program
+			console.log("Exiting...");
+			exit();
+		}
+
+		if (key.leftArrow) {
+			console.log("Left arrow pressed");
+		}
+	});
+
+
 
 	useEffect(() => {
 		let completedTests = 0;
